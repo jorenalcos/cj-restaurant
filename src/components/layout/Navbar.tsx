@@ -1,6 +1,20 @@
 import { Menu, ShoppingCart } from "lucide-react";
+import { useCartStore } from "../../store/cartStore";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const items =
+  useCartStore(
+    (state) => state.items
+  );
+
+  const cartCount =
+  items.reduce(
+    (total, item) =>
+      total + item.quantity,
+    0
+  );
   return (
     <header className="sticky top-0 z-50 bg-[#17a562] text-white shadow">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
@@ -23,7 +37,15 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
 
-          <ShoppingCart className="cursor-pointer" />
+          <ShoppingCart 
+            className="cursor-pointer"
+            onClick={() =>
+              navigate("/cart")
+            }
+           />
+          <span className="absolute top-5.5 right-140 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+            {cartCount}
+          </span>
 
           <button className="md:hidden">
             <Menu />
