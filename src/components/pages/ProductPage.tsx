@@ -20,9 +20,7 @@ export default function ProductPage() {
 const navigate = useNavigate();
 
 const addItem =
-  useCartStore(
-    (state) => state.addItem
-  );
+  useCartStore((state) => state.addItem);
 
 if (isLoading) {
   return (
@@ -115,7 +113,7 @@ return (
           onClick={() =>
             addItem(product, quantity)
           }
-          className="mt-8 rounded-xl bg-[#7B4A37] px-8 py-3 text-white"
+          className="mt-8 rounded-xl bg-[#7B4A37] px-8 py-3 text-white cursor-pointer"
         >
           Add To Cart
         </button>

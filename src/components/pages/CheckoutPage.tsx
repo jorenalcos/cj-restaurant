@@ -5,10 +5,9 @@ import {
   checkoutSchema,
   type CheckoutFormData,
 } from "../../schemas/checkout.schema";
-import { useCartStore } from "../../store/cartStore";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useOrderSummary } from "../../hooks/useOrderSummary";
+import { useCheckout } from "../../hooks/useCheckout";
 
 export default function CheckoutPage() {
 	const {register, handleSubmit, formState: { errors },} = useForm<CheckoutFormData>({
@@ -17,60 +16,24 @@ export default function CheckoutPage() {
 		),
 	});
 
-	const items =
-		useCartStore(
-			(state) => state.items
-	);
+	const {
+		items,
+		itemCount,
+		subtotal,
+		total,
+	} = useOrderSummary();
 
-	const subtotal =
-		items.reduce(
-			(sum, item) => sum + item.price * item.quantity, 0
-	);
+	const { submitOrder, isSubmitting } =
+  useCheckout({
+    itemCount,
+    orderTotal: total,
+  });
 
-	const deliveryFee = 50;
-	const total = subtotal + deliveryFee;
-
-	const navigate = useNavigate();
-
-	const clearCart = useCartStore((state) => state.clearCart);
-
-	const [isSubmitting, setIsSubmitting] = useState(false);
-
-	const generateOrderNumber = () => {
-		const random = Math.floor(1000 + Math.random() * 9000);
-		return `ORD-${Date.now()}-${random}`;
+	const onSubmit = async (
+		data: CheckoutFormData
+	) => {
+		await submitOrder();
 	};
-
-	const onSubmit = async (data: CheckoutFormData) => {
-		try {
-			setIsSubmitting(true);
-
-			await new Promise(
-				(resolve) =>
-					setTimeout(
-						resolve,
-						1500
-					)
-			);
-
-			const orderNumber =
-				generateOrderNumber();
-
-			sessionStorage.setItem(
-				"orderNumber",
-				orderNumber
-			);
-
-			clearCart();
-
-			navigate(
-				"/order-success"
-			);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
 
 	if (!items.length) {
 		return (
@@ -176,15 +139,7 @@ export default function CheckoutPage() {
 								type="submit"
 								disabled={isSubmitting}
 								form="checkout-form"
-								className="
-									mt-6
-									w-full
-									rounded-xl
-									bg-[#7B4A37]
-									py-3
-									text-white
-									disabled:opacity-50
-								"
+								className="mt-6 w-full rounded-xl bg-[#7B4A37] py-3 text-white disabled:opacity-50 cursor-pointer"
 							>
 								{isSubmitting
 									? <>
@@ -207,3 +162,4 @@ export default function CheckoutPage() {
     </Container>
   );
 }
+

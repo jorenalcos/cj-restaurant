@@ -14,13 +14,7 @@ export default function CartPage() {
   } = useCartStore();
 
   const total =
-    items.reduce(
-      (sum, item) =>
-        sum +
-        item.price *
-          item.quantity,
-      0
-    );
+    items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const [loadingId, setLoadingId] = useState<number | null>(null);
 
@@ -109,39 +103,26 @@ export default function CartPage() {
 
           <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-2xl font-bold"> Order Summary</h2>
-
             <div className="flex justify-between">
               <span>Items</span>
               <span>{items.length}</span>
             </div>
-
             <div className="mt-2 flex justify-between">
               <span>Subtotal</span>
               <span>₱{total}</span>
             </div>
-
             <div className="mt-2 flex justify-between">
               <span>Delivery Fee</span>
               <span>₱50</span>
             </div>
-
             <hr className="my-4" />
-
             <div className="flex justify-between text-xl font-bold">
               <span>Total</span>
               <span>₱{total + 50}</span>
             </div>
-
             <button
               onClick={() => navigate("/checkout")}
-              className="
-                mt-6
-                w-full
-                rounded-xl
-                bg-[#7B4A37]
-                py-3
-                text-white
-              "
+              className="mt-6 w-full rounded-xl bg-[#7B4A37] py-3 text-white cursor-pointer"
             >
               Proceed To Checkout
             </button>
