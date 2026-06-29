@@ -30,7 +30,7 @@ export default function CheckoutPage() {
   });
 
 	const onSubmit = async (
-		data: CheckoutFormData
+		_data: CheckoutFormData
 	) => {
 		await submitOrder();
 	};
