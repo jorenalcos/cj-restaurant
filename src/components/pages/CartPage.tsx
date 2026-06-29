@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Container from "../../components/layout/Container";
-
 import { useCartStore } from "../../store/cartStore";
+import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
+  const navigate = useNavigate();
+
   const {
     items,
     increase,
@@ -55,7 +57,6 @@ export default function CartPage() {
 
                 <div>
                   <h3 className="font-semibold text-lg">{item.name}</h3>
-
                   <p className="text-gray-500">
                     {item.description}
                   </p>
@@ -131,7 +132,17 @@ export default function CartPage() {
               <span>₱{total + 50}</span>
             </div>
 
-            <button className="mt-6 w-full rounded-xl bg-[#7B4A37] py-3 text-white">
+            <button
+              onClick={() => navigate("/checkout")}
+              className="
+                mt-6
+                w-full
+                rounded-xl
+                bg-[#7B4A37]
+                py-3
+                text-white
+              "
+            >
               Proceed To Checkout
             </button>
           </div>
