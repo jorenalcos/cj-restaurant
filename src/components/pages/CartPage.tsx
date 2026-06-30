@@ -23,7 +23,6 @@ export default function CartPage() {
     <Container>
       <div className="py-20 text-center">
         <h2 className="text-3xl font-bold">Your cart is empty 🛒</h2>
-
         <p className="mt-3 text-gray-500">
           Add some delicious items to get started.
         </p>
@@ -40,43 +39,48 @@ export default function CartPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between rounded-2xl bg-white p-6 shadow-sm"
+              className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex gap-4">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="h-20 w-20 rounded-xl object-cover"
+                   className="h-16 w-16 rounded-lg object-cover md:h-20 md:w-20"
                 />
-
-                <div>
-                  <h3 className="font-semibold text-lg">{item.name}</h3>
-                  <p className="text-gray-500">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold">
+                    {item.name}
+                  </h3>
+                  <p
+                    className="text-sm text-gray-500 line-clamp-2"
+                  >
                     {item.description}
                   </p>
-
-                  <p className="mt-1 font-bold text-[#7B4A37]">
+                  <p
+                    className="mt-1 font-bold text-[#7B4A37]"
+                  >
                     ₱{item.price}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-8">
-                <div className="flex items-center gap-3">
-
+              <div  className="flex items-center justify-between md:justify-endmd:gap-8">
+                <div className="flex items-center gap-2 mr-2">
                   <button
                     onClick={() => decrease(item.id)}
-                    className="h-10 w-10 rounded-lg border hover:bg-gray-100">
+                    className="h-9 w-9 rounded-lg border"
+                  >
                     -
                   </button>
 
-                  <span className="font-semibold">
+                  <span className="w-6 text-center">
                     {item.quantity}
                   </span>
 
                   <button
                     onClick={() => increase(item.id)}
-                    className="h-10 w-10 rounded-lg border hover:bg-gray-100">
+                    className="h-9 w-9 rounded-lg border hover:bg-gray-100"
+                    >
                     +
                   </button>
 
@@ -92,7 +96,8 @@ export default function CartPage() {
                   removeItem(item.id);
                   setLoadingId(null);
                 }}
-                className="rounded-lg bg-red-500 px-4 py-2 text-white disabled:opacity-50">
+                  className="rounded-lg bg-red-500 px-4 py-2 text-white md:w-auto"
+                >
                 {loadingId === item.id
                   ? "Removing..."
                   : "Remove"}

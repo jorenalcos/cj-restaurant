@@ -21,23 +21,17 @@ export default function OrderSuccessPage() {
     const itemCount = summary.itemCount || 0;
     const orderTotal = summary.orderTotal || 0;
 
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        navigate("/");
-      }, 10000);
+    // useEffect(() => {
+    //   const timer = setTimeout(() => {
+    //     navigate("/");
+    //   }, 10000);
 
-      return () => clearTimeout(timer);
-    }, []);
+    //   return () => clearTimeout(timer);
+    // }, []);
 
   return (
     <Container>
       <section className="flex min-h-[70vh] flex-col items-center justify-center text-center">
-        <div className="text-7xl">
-          <CheckCircle2
-            size={80}
-            className="text-green-500"
-          />
-        </div>
         <h1 className="mt-6 text-5xl font-bold">
           Order Successful
         </h1>
@@ -45,9 +39,9 @@ export default function OrderSuccessPage() {
           Thank you for your order.
         </p>
 
-        <div className="mt-8 rounded-xl border border-green-200 bg-green-50 px-6 py-4">
+        {/* <div className="mt-8 rounded-xl border border-green-200 bg-green-50 px-6 py-4">
           Payment received successfully.
-        </div>
+        </div> */}
 
         <div className="mt-8 rounded-xl bg-white px-8 py-5 shadow-sm">
           <p className="text-gray-500">
@@ -60,11 +54,14 @@ export default function OrderSuccessPage() {
         </div>
 
         <div className="mt-6 rounded-xl bg-white p-5 shadow-sm">
-          <div className="flex justify-between">
-            <span>Payment Method</span>
-            <span>Cash On Delivery</span>
+          <div>
+            <p className="text-gray-500">
+              Payment Method
+            </p>
+            <p className="mt-1 font-semibold">
+              Cash On Delivery
+            </p>
           </div>
-
           <div className="mt-2 flex justify-between">
             <span>Items</span>
             <span>{itemCount}</span>
@@ -83,6 +80,13 @@ export default function OrderSuccessPage() {
             30-45 mins
           </span>
         </p>
+
+        <div className="text-7xl">
+          <CheckCircle2
+            size={80}
+            className="text-green-500"
+          />
+        </div>
 
         <button
           onClick={() => navigate("/")}

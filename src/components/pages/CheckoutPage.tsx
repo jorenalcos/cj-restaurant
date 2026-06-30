@@ -47,7 +47,7 @@ export default function CheckoutPage() {
 
   return (
     <Container>
-      <section className="py-12 grid gap-10 lg:grid-cols-3">
+      <section className="py-12 grid gap-0 md:gap-10 lg:grid-cols-3">
 				<h1 className="mb-8 text-4xl font-bold">
 					Checkout
 				</h1>

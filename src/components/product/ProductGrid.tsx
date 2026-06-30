@@ -21,8 +21,7 @@ export default function ProductGrid({
     isError,
   } = useProducts();
 
-  const filteredProducts =
-  data?.filter((product) => {
+  const filteredProducts = data?.filter((product) => {
     const matchSearch = product.name
       .toLowerCase()
       .includes(search.toLowerCase());
@@ -69,10 +68,6 @@ export default function ProductGrid({
       <h3 className="text-xl font-semibold">
         No products found
       </h3>
-
-      <p className="mt-2 text-gray-500">
-        Try another keyword.
-      </p>
     </div>
     );
   }

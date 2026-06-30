@@ -1,6 +1,7 @@
 import { Menu, ShoppingCart } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -8,6 +9,9 @@ export default function Navbar() {
   useCartStore(
     (state) => state.items
   );
+
+  const [isMenuOpen, setIsMenuOpen] =
+  useState(false);
 
   const cartCount =
   items.reduce(
@@ -43,7 +47,12 @@ export default function Navbar() {
               {cartCount}
             </span>
           </div>
-          <button className="md:hidden">
+          <button 
+          className="md:hidden"
+            onClick={() =>
+              setIsMenuOpen(!isMenuOpen)
+            }
+          >
             <Menu />
           </button>
         </div>

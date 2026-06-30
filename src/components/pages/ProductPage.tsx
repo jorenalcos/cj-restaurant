@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useProduct } from "../../hooks/useProduct";
 import { useCartStore } from "../../store/cartStore";
+import { Loader2 } from "lucide-react";
 import Container from "../../components/layout/Container";
 import ProductGrid from "../product/ProductGrid";
 import { Star } from "lucide-react";
@@ -18,9 +19,8 @@ export default function ProductPage() {
 } = useProduct(Number(id));
 
 const navigate = useNavigate();
-
-const addItem =
-  useCartStore((state) => state.addItem);
+const addItem = useCartStore((state) => state.addItem);
+const [isAdding, setIsAdding] = useState(false);
 
 if (isLoading) {
   return (
@@ -81,12 +81,7 @@ return (
         <div className="mt-8 flex items-center gap-4">
           <button
             onClick={() =>
-              setQuantity((prev) =>
-                Math.max(
-                  1,
-                  prev - 1
-                )
-              )
+              setQuantity((prev) => Math.max(1, prev - 1))
             }
             className="h-10 w-10 rounded-lg border hover:bg-gray-100 cursor-pointer"
           >
@@ -97,12 +92,7 @@ return (
             {quantity}
           </span>
           <button
-            onClick={() =>
-              setQuantity(
-                (prev) =>
-                  prev + 1
-              )
-            }
+            onClick={() => setQuantity((prev) => prev + 1)}
             className="h-10 w-10 rounded-lg border hover:bg-gray-100 cursor-pointer"
           >
             +
@@ -110,12 +100,31 @@ return (
         </div>
 
         <button
-          onClick={() =>
-            addItem(product, quantity)
-          }
-          className="mt-8 rounded-xl bg-[#7B4A37] px-8 py-3 text-white cursor-pointer"
+          disabled={isAdding}
+          onClick={async () => {
+            setIsAdding(true);
+
+            await new Promise((resolve) =>
+              setTimeout(resolve, 500)
+            );
+
+            addItem(product, quantity);
+
+            setIsAdding(false);
+          }}
+          className="mt-8 flex items-center justify-center gap-2 rounded-xl bg-[#7B4A37] px-8 py-3 text-white disabled:opacity-50 cursor-pointer"
         >
-          Add To Cart
+          {isAdding ? (
+            <>
+              <Loader2
+                size={18}
+                className="animate-spin"
+              />
+              Adding...
+            </>
+          ) : (
+            "Add To Cart"
+          )}
         </button>
       </div>
     </section>
