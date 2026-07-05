@@ -10,7 +10,7 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   const navigate = useNavigate();
-   const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 

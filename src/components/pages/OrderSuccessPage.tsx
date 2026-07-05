@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { CheckCircle2 } from "lucide-react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function OrderSuccessPage() {
   const navigate = useNavigate();
